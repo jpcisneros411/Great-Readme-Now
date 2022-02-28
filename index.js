@@ -1,9 +1,8 @@
-const markdownMaker = require('./utils/generateMarkdown');
-var inquirer = require('inquirer');
-//const prompts = require('inquirer');
-var markdown = require('markdown');
-var fs = require('fs');
-var writeFileAsync = util.promisify(fs.writeFile);
+const markdownMaker = require('./util/markdownMaker');
+const inquirer = require('inquirer');
+const util = require('util');
+const fs = require('fs');
+const writeFileAsync = util.promisify(fs.writeFile);
 
 function userInput(){
 //this is going to ask the user questions like "what does this do or that do title etc."
@@ -44,17 +43,17 @@ function userInput(){
             name:"testing",
             message:"What tests are included in this project? How can this project be tested?"
         },
-        {
+        //{
             //for licenses, initially trying checkbox
-            type: "checkbox",
-            name: "licenses",
-            message: "Which license is this?",
-            choices: [
-                { name: 'MIT License',short:'MIT',value:"MIT",checked:false},
-                { name: 'GNU GPLv3',short:'GPL',value:"GPL",checked:false},
-                { name: 'Apache License 2.0',short:'Apache',value:"Apache",checked:false}
-            ]
-        },
+            // type: "checkbox",
+            // name: "licenses",
+            // message: "Which license is this?",
+            // choices: [
+            //     { name: 'MIT License',short:'MIT',value:"MIT",checked:false},
+            //     { name: 'GNU GPLv3',short:'GPL',value:"GPL",checked:false},
+            //     { name: 'Apache License 2.0',short:'Apache',value:"Apache",checked:false}
+            // ]
+        //},
         {   
             //for email
             type: "input",
@@ -75,8 +74,8 @@ function userInput(){
 async function init(){
     //to run it
     try {
-        var input = await userInput();
-        var mkdwn =  markdownMaker(input);
+        const input = await userInput();
+        const mkdwn =  markdownMaker(input);
         await writeFileAsync('README.md', mkdwn, 'utf-8');
     }
     catch(err){
