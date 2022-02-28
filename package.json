@@ -1,0 +1,22 @@
+{
+  "name": "great-readme-now",
+  "version": "1.0.0",
+  "description": "dependancies for a professional readme generator.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpcisneros411/Great-Readme-Now.git"
+  },
+  "author": "Jason C",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "8.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/jpcisneros411/Great-Readme-Now/issues"
+  },
+  "homepage": "https://github.com/jpcisneros411/Great-Readme-Now#readme"
+}
