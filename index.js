@@ -1,10 +1,13 @@
+const markdownMaker = require('./utils/generateMarkdown');
 var inquirer = require('inquirer');
 //const prompts = require('inquirer');
+var markdown = require('markdown');
+var fs = require('fs');
+var writeFileAsync = util.promisify(fs.writeFile);
 
 function userInput(){
 //this is going to ask the user questions like "what does this do or that do title etc."
-    return 
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             //For title
             type: 'input',
@@ -42,7 +45,7 @@ function userInput(){
             message:"What tests are included in this project? How can this project be tested?"
         },
         {
-            //for licenses
+            //for licenses, initially trying checkbox
             type: "checkbox",
             name: "licenses",
             message: "Which license is this?",
@@ -52,12 +55,14 @@ function userInput(){
                 { name: 'Apache License 2.0',short:'Apache',value:"Apache",checked:false}
             ]
         },
-        {
+        {   
+            //for email
             type: "input",
             name: "email_address",
             message: "Where should people e-mail if they have questions/comments concern?"
         },
         {
+            //for github 
             type: "input",
             name: "creator_Github",
             message: "What is the address of your Github Profile?"
@@ -68,7 +73,15 @@ function userInput(){
 }
 
 async function init(){
-    //
+    //to run it
+    try {
+        var input = await userInput();
+        var mkdwn =  markdownMaker(input);
+        await writeFileAsync('README.md', mkdwn, 'utf-8');
+    }
+    catch(err){
+        console.log("An error occured");
+    }
 }
 
 init();
